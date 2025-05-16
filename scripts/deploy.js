@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 async function main() {
   const Voting = await ethers.getContractFactory("Voting");
-  const Voting_ = await Voting.deploy(["Lewis Hamilton", "Max Verstappen", "Charles Leclerc", "Ayrton Senna", "Micheal Schumacher"], 10);
+  const Voting_ = await Voting.deploy(["Lewis Hamilton", "Max Verstappen", "Charles Leclerc", "Ayrton Senna", "Micheal Schumacher"], 5);
   console.log("Contract deployed. ");
   const mainJsPath = path.join(__dirname, '..', 'main.js');
   const mainJsContent = fs.readFileSync(mainJsPath, 'utf-8');
