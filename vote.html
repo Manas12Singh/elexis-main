@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Elexis - Vote</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="/assets/img/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="/assets/img/ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+  <script src="main.js"></script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.7.1.umd.min.js" type="application/javascript"></script>
+</head>
+
+<body>
+  <div class="perspective effect-rotate-left">
+    <div class="container">
+      <div class="outer-nav--return"></div>
+      <div id="viewport" class="l-viewport">
+        <div class="l-wrapper">
+          <a class="header--logo invisible" href="https://elexis.netlify.app"><img src="assets/img/logo.png"
+              alt="Elexis"></a>
+          <nav class="l-side-nav">
+            <ul class="side-nav">
+              <li class="is-active"></li>
+            </ul>
+          </nav>
+          <ul class="l-main-content main-content">
+            <li class="l-section section section--is-active">
+              <div class="intro">
+                <div class="work-request">
+                  <button class="primary-button" onclick="connectMetamask('1')"><span
+                      class="primary-button__text">Connect MetaMask</span></button>
+                  <p id="metamasknotification1"></p>
+                  <div class="inputNumber"><span class="input-number-decrement">–</span><input id="vote" type="text"
+                      value="1" min="0" readonly><span class="input-number-increment">+</span></div>
+                  <p></p>
+                  <button class="primary-button" onclick="addVote()"><span
+                      class="primary-button__text">Vote</span></button>
+                  <p id="cand"></p>
+                  <button class="primary-button" onclick="voteStatus()"><span class="primary-button__text">Voting
+                      Status</span></button>
+                  <p id="status"></p>
+                  <p id="time"></p>
+                  <button class="primary-button" onclick="redirectToCandidatePage()"><span
+                      class="primary-button__text">View Candidates</span></button>
+                </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <ul class="outer-nav">
+      <li class="is-active">Home</li>
+    </ul>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-2.2.4.min.js"><\/script>')</script>
+  <script src="assets/js/functions-min.js"></script>
+    <script src="scripts/ethers-5.7.1.umd.min.js"></script>
+  <script>
+    function redirectToCandidatePage() {
+      window.location.href = "/candidate.html";
+    }
+  </script>
+  <script>
+    (function () {
+      window.inputNumber = function (el) {
+        var min = el.attr('min') || false;
+        var max = el.attr('max') || false;
+        var els = {};
+        els.dec = el.prev();
+        els.inc = el.next();
+        el.each(function () {
+          init($(this));
+        });
+        function init(el) {
+          els.dec.on('click', decrement);
+          els.inc.on('click', increment);
+          function decrement() {
+            var value = parseInt(el.val(), 10);
+            value--;
+            if ((!min || value >= min) && (!max || value <= max)) {
+              el.val(value);
+            }
+          }
+          function increment() {
+            var value = parseInt(el.val(), 10);
+            value++;
+            if ((!min || value >= min) && (!max || value <= max)) {
+              el.val(value);
+            }
+          }
+        }
+      };
+      updateMaxAttribute($('#vote')).then(() => {
+        inputNumber($('#vote'));
+      });
+    })();
+
+  </script>
+</body>
+
+</html>
